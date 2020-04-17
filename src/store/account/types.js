@@ -1,0 +1,4 @@
+const SET_EMAIL = 'SET_EMAIL';
+const SET_PASSWORD = 'SET_PASSWORD';
+
+export default { SET_EMAIL, SET_PASSWORD };

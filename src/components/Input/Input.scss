@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.input {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    background-color: #343344;
+    box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.input::placeholder {
+    text-align: center;
+}
