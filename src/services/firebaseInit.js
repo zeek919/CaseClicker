@@ -15,3 +15,12 @@ export const firebaseConfig = {
 export const login = async (email, password) => {
     await firebase.auth().signInWithEmailAndPassword(email, password);
 };
+
+export const register = async (nick, email, password) => {
+    const createUser = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+    await createUser.user.updateProfile({
+        displayName: nick,
+    });
+};

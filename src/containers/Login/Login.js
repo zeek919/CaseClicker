@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import style from './Login.scss';
-import Input from '../Input/Input';
-import FormButton from '../FormButton/FormButton';
+import Input from '../../components/Input/Input';
+import FormButton from '../../components/FormButton/FormButton';
 import { login } from '../../services/firebaseInit';
 
 const Login = withRouter(({ history }) => {
@@ -26,8 +26,8 @@ const Login = withRouter(({ history }) => {
             </div>
             <form>
                 <Input
-                    label="LOGIN"
-                    id="form__login"
+                    label="E-MAIL"
+                    id="form__login--email"
                     onChange={(e) => {
                         setEmail(e.target.value);
                     }}
@@ -35,7 +35,7 @@ const Login = withRouter(({ history }) => {
                 <div className={style.margin}>
                     <Input
                         label="PASSWORD"
-                        id="form__password"
+                        id="form__login--password"
                         type="password"
                         onChange={(e) => {
                             setPassword(e.target.value);
@@ -50,7 +50,12 @@ const Login = withRouter(({ history }) => {
                         loginUser(email, password);
                     }}
                 />
-                <FormButton content="REGISTER" onClick={() => ''} />
+                <FormButton
+                    content="REGISTER"
+                    onClick={() => {
+                        history.push('/register');
+                    }}
+                />
             </div>
         </div>
     );
