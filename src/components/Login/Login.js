@@ -1,52 +1,59 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import style from './Login.scss';
 import Input from '../Input/Input';
 import FormButton from '../FormButton/FormButton';
-import actions from '../../store/account/actions';
+import { login } from '../../services/firebaseInit';
 
-const Login = (props) => {
-    const changeEmail = (event) => {
-        props.setEmail(event.target.value);
-    };
+const Login = withRouter(({ history }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, catchError] = useState('');
 
-    const changePassword = (event) => {
-        props.setPassword(event.target.value);
+    const loginUser = async (emailValue, passwordValue) => {
+        try {
+            await login(emailValue, passwordValue);
+            history.push('/home');
+        } catch (errorValue) {
+            catchError(errorValue.message);
+        }
     };
 
     return (
         <div className={style.wrapper}>
+            <div className={style.errorWrapper}>
+                <p>{error}</p>
+            </div>
             <form>
-                <Input label="LOGIN" id="form__login" onChange={changeEmail} />
+                <Input
+                    label="LOGIN"
+                    id="form__login"
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }}
+                />
                 <div className={style.margin}>
                     <Input
                         label="PASSWORD"
                         id="form__password"
                         type="password"
-                        onChange={changePassword}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
                     />
                 </div>
             </form>
             <div className="wrapper__button">
-                <FormButton content="LOGIN" />
-                <FormButton content="REGISTER" />
+                <FormButton
+                    content="LOGIN"
+                    onClick={() => {
+                        loginUser(email, password);
+                    }}
+                />
+                <FormButton content="REGISTER" onClick={() => ''} />
             </div>
         </div>
     );
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    setEmail: (item) => dispatch(actions.setEmail(item)),
-    setPassword: (item) => dispatch(actions.setPassword(item)),
 });
 
-Login.propTypes = {
-    setEmail: PropTypes.func,
-};
-
-Login.defaultProps = {
-    setEmail: '',
-};
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

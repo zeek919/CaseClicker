@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from '../../components/Login/Login';
+import Home from '../Home/Home';
 import style from './Root.scss';
 import logo from '../../assets/images/Logo.png';
 
@@ -11,14 +12,14 @@ class Root extends Component {
                 <div className={style.root}>
                     <img src={logo} alt="logo" className={style.logo} />
                     <div>
-                        <Login />
+                        {/* <Login /> */}
+
+                        <Switch>
+                            <Route exact path="/" component={Login} />
+                            <Route path="/home" component={Home} />
+                        </Switch>
                     </div>
                 </div>
-                <Switch>
-                    <Route exec path="/login">
-                        {Login}
-                    </Route>
-                </Switch>
             </Router>
         );
     }
