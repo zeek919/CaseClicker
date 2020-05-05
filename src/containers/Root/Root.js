@@ -4,15 +4,12 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Home from '../Home/Home';
 import style from './Root.scss';
-import logo from '../../assets/images/Logo.png';
 
 class Root extends Component {
     render() {
         return (
             <div className={style.root}>
                 <Router>
-                    <img src={logo} alt="logo" className={style.logo} />
-                    <div />
                     <Switch>
                         <Route exact path="/" component={Login} />
                         <Route path="/register" component={Register} />

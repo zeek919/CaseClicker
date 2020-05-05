@@ -4,6 +4,7 @@ import style from './Login.scss';
 import Input from '../../components/Input/Input';
 import FormButton from '../../components/FormButton/FormButton';
 import { login } from '../../services/firebaseInit';
+import logo from '../../assets/images/Logo.png';
 
 const Login = withRouter(({ history }) => {
     const [email, setEmail] = useState('');
@@ -20,42 +21,45 @@ const Login = withRouter(({ history }) => {
     };
 
     return (
-        <div className={style.wrapper}>
-            <div className={style.errorWrapper}>
-                <p>{error}</p>
-            </div>
-            <form>
-                <Input
-                    label="E-MAIL"
-                    id="form__login--email"
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                    }}
-                />
-                <div className={style.margin}>
+        <div className={style.box}>
+            <img src={logo} alt="logo" className={style.logo} />
+            <div className={style.wrapper}>
+                <div className={style.errorWrapper}>
+                    <p>{error}</p>
+                </div>
+                <form>
                     <Input
-                        label="PASSWORD"
-                        id="form__login--password"
-                        type="password"
+                        label="E-MAIL"
+                        id="form__login--email"
                         onChange={(e) => {
-                            setPassword(e.target.value);
+                            setEmail(e.target.value);
+                        }}
+                    />
+                    <div className={style.margin}>
+                        <Input
+                            label="PASSWORD"
+                            id="form__login--password"
+                            type="password"
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }}
+                        />
+                    </div>
+                </form>
+                <div className={style.wrapper__button}>
+                    <FormButton
+                        content="LOGIN"
+                        onClick={() => {
+                            loginUser(email, password);
+                        }}
+                    />
+                    <FormButton
+                        content="REGISTER"
+                        onClick={() => {
+                            history.push('/register');
                         }}
                     />
                 </div>
-            </form>
-            <div className={style.wrapper__button}>
-                <FormButton
-                    content="LOGIN"
-                    onClick={() => {
-                        loginUser(email, password);
-                    }}
-                />
-                <FormButton
-                    content="REGISTER"
-                    onClick={() => {
-                        history.push('/register');
-                    }}
-                />
             </div>
         </div>
     );

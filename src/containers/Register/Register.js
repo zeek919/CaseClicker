@@ -4,6 +4,7 @@ import Input from '../../components/Input/Input';
 import FormButton from '../../components/FormButton/FormButton';
 import style from './Register.scss';
 import { register } from '../../services/firebaseInit';
+import logo from '../../assets/images/Logo.png';
 
 const Register = withRouter(({ history }) => {
     const [nick, setNick] = useState('');
@@ -20,43 +21,46 @@ const Register = withRouter(({ history }) => {
     };
 
     return (
-        <div className={style.wrapper}>
-            <div className={style.errorWrapper}>
-                <p>{error}</p>
-            </div>
-            <form>
-                <Input
-                    label="NICK"
-                    id="form__register--nick"
-                    onChange={(e) => setNick(e.target.value)}
-                />
-                <div className={style.margin}>
+        <div className={style.box}>
+            <img src={logo} alt="logo" className={style.logo} />
+            <div className={style.wrapper}>
+                <div className={style.errorWrapper}>
+                    <p>{error}</p>
+                </div>
+                <form>
                     <Input
-                        label="E-MAIL"
-                        id="form__register--email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        label="NICK"
+                        id="form__register--nick"
+                        onChange={(e) => setNick(e.target.value)}
+                    />
+                    <div className={style.margin}>
+                        <Input
+                            label="E-MAIL"
+                            id="form__register--email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className={style.margin}>
+                        <Input
+                            label="PASSWORD"
+                            id="form__register--password"
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                </form>
+                <div className={style.wrapper__button}>
+                    <FormButton
+                        content="LOGIN"
+                        onClick={() => {
+                            history.push('/');
+                        }}
+                    />
+                    <FormButton
+                        content="REGISTER"
+                        onClick={() => signUp(nick, email, password)}
                     />
                 </div>
-                <div className={style.margin}>
-                    <Input
-                        label="PASSWORD"
-                        id="form__register--password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-            </form>
-            <div className={style.wrapper__button}>
-                <FormButton
-                    content="LOGIN"
-                    onClick={() => {
-                        history.push('/');
-                    }}
-                />
-                <FormButton
-                    content="REGISTER"
-                    onClick={() => signUp(nick, email, password)}
-                />
             </div>
         </div>
     );
