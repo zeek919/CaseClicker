@@ -9,20 +9,21 @@ import logo from '../../assets/images/Logo.png';
 class Root extends Component {
     render() {
         return (
-            <Router>
-                <div className={style.root}>
+            <div className={style.root}>
+                <Router>
                     <img src={logo} alt="logo" className={style.logo} />
-                    <div>
-                        {/* <Login /> */}
-
-                        <Switch>
-                            <Route exact path="/" component={Login} />
-                            <Route path="/register" component={Register} />
-                            <Route path="/home" component={Home} />
-                        </Switch>
-                    </div>
-                </div>
-            </Router>
+                    <div />
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/home" component={Home} />
+                        <Route path="/eguipment" component="" />
+                        <Route path="/cases" component="" />
+                        <Route path="/shop" component="" />
+                        <Route path="/upgrades" component="" />
+                    </Switch>
+                </Router>
+            </div>
         );
     }
 }

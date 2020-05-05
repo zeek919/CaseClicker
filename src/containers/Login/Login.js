@@ -43,7 +43,7 @@ const Login = withRouter(({ history }) => {
                     />
                 </div>
             </form>
-            <div className="wrapper__button">
+            <div className={style.wrapper__button}>
                 <FormButton
                     content="LOGIN"
                     onClick={() => {
