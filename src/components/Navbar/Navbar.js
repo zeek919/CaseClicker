@@ -5,7 +5,7 @@ import style from './Navbar.scss';
 
 const Navbar = ({ navHeadersArray }) => {
     const navLink = navHeadersArray.map((item) => (
-        <NavLink to={item.link} className={style.link}>
+        <NavLink key={item.header} to={item.link} className={style.link}>
             {item.header}
         </NavLink>
     ));
@@ -34,11 +34,8 @@ const Navbar = ({ navHeadersArray }) => {
             </button>
         </div>
     );
-    // return <div className={style.wrapper}>{navLink}</div>;
 };
 
-Navbar.propTypes = {
-    navHeadersArray: PropTypes.arrayOf.isRequired,
-};
+Navbar.propTypes = {};
 
 export default Navbar;
