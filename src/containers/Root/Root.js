@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from '../../components/Login/Login';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import Home from '../Home/Home';
+import Equipment from '../Equipment/Equipment';
 import style from './Root.scss';
-import logo from '../../assets/images/Logo.png';
 
 class Root extends Component {
     render() {
         return (
-            <Router>
-                <div className={style.root}>
-                    <img src={logo} alt="logo" className={style.logo} />
-                    <div>
-                        <Login />
-                    </div>
-                </div>
-                <Switch>
-                    <Route exec path="/login">
-                        {Login}
-                    </Route>
-                </Switch>
-            </Router>
+            <div className={style.root}>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/home" component={Home} />
+                        <Route path="/equipment" component={Equipment} />
+                        <Route path="/cases" component="" />
+                        <Route path="/shop" component="" />
+                        <Route path="/upgrades" component="" />
+                    </Switch>
+                </Router>
+            </div>
         );
     }
 }

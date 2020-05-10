@@ -1,8 +1,9 @@
-import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './containers/Root/Root';
+import 'regenerator-runtime/runtime';
+import { Provider } from 'react-redux';
 import store from './store';
+import Root from './containers/Root/Root';
 
 ReactDOM.render(
     <Provider store={store}>

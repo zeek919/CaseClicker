@@ -11,7 +11,9 @@ const Input = ({ placeholder, id, type, label, onChange }) => (
             onChange={onChange}
             type={type}
         />
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id} className={style.label}>
+            {label}
+        </label>
     </div>
 );
 
