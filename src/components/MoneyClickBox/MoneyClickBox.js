@@ -1,27 +1,38 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dolar from '../../assets/images/dolar.png';
 import style from './MoneyClickBox.scss';
-import actions from '../../store/userData/actions';
+import { updateMoney } from '../../store/userData/actions';
 
 const MoneyClickBox = ({ money, currentTap, setMoney }) => {
+    const [tappedCount, setTappedCount] = useState(0);
+    const [tappedValue, setTappedValue] = useState(currentTap);
+
+    const calculateTapPerClick = () => {
+        setTappedValue(currentTap + parseInt(tappedCount / 10, 10) * 0.05);
+    };
+
     const onClickHandler = () => {
         const tappedMoney = money + currentTap;
         setMoney(tappedMoney);
+        setTappedCount(tappedCount + 1);
+        setTappedValue(currentTap);
     };
 
     return (
         <button
             type="button"
             className={style.wrapper}
-            onClick={onClickHandler}
+            onClick={() => {
+                onClickHandler();
+            }}
         >
             <img src={dolar} alt="dolar" className={style.image} />
             <div className={style.textWrapper}>
                 <h1>{money.toFixed(4)} $</h1>
-                <h3>Current Tap: {currentTap}</h3>
+                <h3>Current Tap: {tappedValue.toFixed(4)}</h3>
             </div>
         </button>
     );
@@ -33,7 +44,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setMoney: (item) => dispatch(actions.updateMoney(item)),
+    setMoney: (item) => dispatch(updateMoney(item)),
 });
 
 MoneyClickBox.propTypes = {

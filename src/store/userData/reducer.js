@@ -1,27 +1,46 @@
-import types from './types';
+import {
+    SET_MONEY,
+    SET_USER_DATA,
+    SET_USER_UID,
+    UPDATE_USER_LEVEL,
+} from './types';
 
 const initialState = {
+    uid: '',
     money: 0,
     currentTap: 0.001,
     experience: 0,
+    level: 1,
     items: [],
 };
 
 const userDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.SET_USER_DATA: {
+        case SET_USER_UID: {
             return {
                 ...state,
-                money: action.item.money,
-                currentTap: action.item.currentTap,
-                experience: action.item.experience,
-                items: action.item.items,
+                uid: action.payload,
             };
         }
-        case types.SET_MONEY: {
+        case SET_USER_DATA: {
+            return {
+                ...state,
+                money: action.payload.money,
+                currentTap: action.payload.currentTap,
+                experience: action.payload.experience,
+                items: action.payload.items,
+            };
+        }
+        case SET_MONEY: {
             return {
                 ...state,
                 money: action.item,
+            };
+        }
+        case UPDATE_USER_LEVEL: {
+            return {
+                ...state,
+                experience: 1 + state.experience,
             };
         }
         default:

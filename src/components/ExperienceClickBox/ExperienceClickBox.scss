@@ -30,6 +30,14 @@
 .image {
     display: none;
     @include for-tablet-up {
+        width: 30%;
+        opacity: 0.2;
         display: block;
     }
+}
+
+.dataWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
 }

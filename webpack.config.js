@@ -18,6 +18,8 @@ module.exports = (env) => {
         watch: true,
         devtool: 'source-map',
         devServer: {
+            historyApiFallback: true,
+            contentBase: './',
             contentBase: './dist',
             hot: true,
         },

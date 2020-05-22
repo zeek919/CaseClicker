@@ -1,13 +1,15 @@
-import types from './types';
+import { SET_MONEY, SET_USER_DATA, UPDATE_USER_LEVEL } from './types';
 
-const setUserData = (item) => ({
-    type: types.SET_USER_DATA,
+export const setUserData = (item) => ({
+    type: SET_USER_DATA,
     item,
 });
 
-const updateMoney = (item) => ({
-    type: types.SET_MONEY,
+export const updateMoney = (item) => ({
+    type: SET_MONEY,
     item,
 });
 
-export default { setUserData, updateMoney };
+export const updateLevel = () => ({
+    type: UPDATE_USER_LEVEL,
+});
