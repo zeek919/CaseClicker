@@ -11,6 +11,7 @@ const initialState = {
     currentTap: 0.001,
     experience: 0,
     level: 1,
+    cases: [],
     items: [],
 };
 
@@ -28,6 +29,7 @@ const userDataReducer = (state = initialState, action) => {
                 money: action.payload.money,
                 currentTap: action.payload.currentTap,
                 experience: action.payload.experience,
+                cases: action.payload.cases,
                 items: action.payload.items,
             };
         }

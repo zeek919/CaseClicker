@@ -4,6 +4,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Home from '../Home/Home';
 import Equipment from '../Equipment/Equipment';
+import Cases from '../Cases/Cases';
 import style from './Root.scss';
 
 class Root extends Component {
@@ -16,7 +17,7 @@ class Root extends Component {
                         <Route path="/register" component={Register} />
                         <Route path="/home" component={Home} />
                         <Route path="/equipment" component={Equipment} />
-                        <Route path="/cases" component="" />
+                        <Route path="/cases" component={Cases} />
                         <Route path="/shop" component="" />
                         <Route path="/upgrades" component="" />
                     </Switch>

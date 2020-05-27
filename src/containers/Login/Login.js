@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import style from './Login.scss';
@@ -7,11 +7,17 @@ import FormButton from '../../components/FormButton/FormButton';
 // import { login } from '../../services/firebaseInit';
 import { login } from '../../store/userData/operations';
 import logo from '../../assets/images/Logo.png';
+import getCasesData from '../../store/cases/operations';
+import randomSkin from '../../helpers/randomSkin';
 
-const Login = ({ history, loginUserAction }) => {
+const Login = ({ history, loginUserAction, casesAction, cases }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, catchError] = useState('');
+
+    useEffect(() => {
+        casesAction();
+    }, []);
 
     const loginUser = async (emailValue, passwordValue) => {
         try {
@@ -48,6 +54,7 @@ const Login = ({ history, loginUserAction }) => {
                         />
                     </div>
                 </form>
+                <button onClick={() => randomSkin(cases)}>asd</button>
                 <div className={style.wrapper__button}>
                     <FormButton
                         content="LOGIN"
@@ -67,6 +74,11 @@ const Login = ({ history, loginUserAction }) => {
     );
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+    cases: state.casesReducer.cases[0],
+});
+
+export default connect(mapStateToProps, {
     loginUserAction: (email, password) => login(email, password),
+    casesAction: () => getCasesData(),
 })(withRouter(Login));
