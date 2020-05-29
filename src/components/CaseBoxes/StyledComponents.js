@@ -16,9 +16,7 @@ export const OpenButton = styled.button`
     font-size: 18px;
     background: linear-gradient(180deg, #000000 0%, rgba(135, 127, 127, 0) 100%),
         #000000;
-    &:disabled {
-        ${(props) => !props.exist[0]}
-    }
+    pointer-events: ${(props) => (props.exist[0] ? 'auto' : ' none')};
 `;
 
 export const SellButton = styled.button`
@@ -29,7 +27,5 @@ export const SellButton = styled.button`
     font-size: 18px;
     background: linear-gradient(180deg, #000000 0%, rgba(91, 91, 91, 0) 100%),
         #353535;
-    &:disabled {
-        ${(props) => !props.exist[0]}
-    }
+    pointer-events: ${(props) => !props.exist[0]};
 `;

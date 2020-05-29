@@ -1,0 +1,25 @@
+.background {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: absolute;
+}
+
+.mainWrapper {
+    width: 70vw;
+    height: 60vh;
+    background-color: rgb(24, 25, 39);
+    border-radius: 15px;
+    border: 1px solid white;
+}
