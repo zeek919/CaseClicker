@@ -27,9 +27,7 @@
 }
 
 .caseWrapper {
-    // display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    // grid-template-rows: repeat(2, 1fr);
+    display: flex;
     padding: 25px;
     margin-top: 3em;
     box-shadow: inset 0px 1px 19px 0px rgba(0, 0, 0, 0.75);

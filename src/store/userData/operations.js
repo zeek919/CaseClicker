@@ -26,22 +26,26 @@ export const updateUserData = (data) => async (
     getState,
     middlewares,
 ) => {
-    const { firestore } = middlewares.services;
-    const {
-        uid,
-        money,
-        currentTap,
-        experience,
-        level,
-        items,
-    } = getState().userDataReducer;
-    await firestore.collection('users').doc(uid).update({
-        currentTap,
-        experience,
-        items,
-        level,
-        money,
-    });
+    try {
+        const { firestore } = middlewares.services;
+        const {
+            uid,
+            money,
+            currentTap,
+            experience,
+            level,
+            items,
+        } = getState().userDataReducer;
+        await firestore.collection('users').doc(uid).update({
+            currentTap,
+            experience,
+            items,
+            level,
+            money,
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
 export const login = (email, password) => async (

@@ -54,7 +54,6 @@ const Login = ({ history, loginUserAction, casesAction, cases }) => {
                         />
                     </div>
                 </form>
-                <button onClick={() => randomSkin(cases)}>asd</button>
                 <div className={style.wrapper__button}>
                     <FormButton
                         content="LOGIN"

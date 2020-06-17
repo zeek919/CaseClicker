@@ -3,6 +3,8 @@ import {
     SET_USER_DATA,
     SET_USER_UID,
     UPDATE_USER_LEVEL,
+    ADD_ITEM,
+    UPDATE_ITEMS,
 } from './types';
 
 const initialState = {
@@ -43,6 +45,18 @@ const userDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 experience: 1 + state.experience,
+            };
+        }
+        case ADD_ITEM: {
+            return {
+                ...state,
+                items: [...state.items, action.item],
+            };
+        }
+        case UPDATE_ITEMS: {
+            return {
+                ...state,
+                items: action.item,
             };
         }
         default:

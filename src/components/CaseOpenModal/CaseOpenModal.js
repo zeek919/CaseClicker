@@ -1,30 +1,22 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import style from './CaseOpenModal.scss';
+import { Wrapper, Main, Backdrop } from './StyledComponents';
 
-const CaseOpenModal = forwardRef((porps, ref) => {
-    const [display, setDisplay] = useState(false);
-
-    const showModal = () => {
-        setDisplay(true);
-    };
-
-    useImperativeHandle(ref, () => ({
-        open: () => showModal(),
-    }));
-
-    if (display) {
+const CaseOpenModal = ({ isOpen, close, color, children }) => {
+    if (isOpen) {
         return ReactDOM.createPortal(
-            <div className={style.background}>
-                <div
-                    className={style.backdrop}
-                    onClick={() => setDisplay(false)}
-                />
-                <div className={style.mainWrapper} />
-            </div>,
+            <Wrapper className={style.background}>
+                <Main color={color}>{children}</Main>
+                <Backdrop className={style.backdrop}>
+                    <button onClick={close} type="button">
+                        Exit
+                    </button>
+                </Backdrop>
+            </Wrapper>,
             document.getElementById('modal-root')
         );
     }
     return null;
-});
+};
 export default CaseOpenModal;
