@@ -7,6 +7,7 @@ import MoneyClickBox from '../../components/MoneyClickBox/MoneyClickBox';
 import ExperienceClickBox from '../../components/ExperienceClickBox/ExperienceClickBox';
 import setLevels from '../../store/levels/operations';
 import { updateUserData } from '../../store/userData/operations';
+import setShopData  from '../../store/shop/operation';
 import style from './Home.scss';
 
 class Home extends Component {
@@ -15,8 +16,9 @@ class Home extends Component {
     };
 
     async componentDidMount() {
-        const { setLevelsAction } = this.props;
+        const { setLevelsAction, setShopDataAction } = this.props;
         await setLevelsAction();
+        await setShopDataAction();
         await this.setState({ isLoaded: true });
     }
 
@@ -60,4 +62,5 @@ Home.propTypes = {
 export default connect(mapStateToProps, {
     setLevelsAction: setLevels,
     updateUserDataAction: updateUserData,
+    setShopDataAction: setShopData,
 })(Home);

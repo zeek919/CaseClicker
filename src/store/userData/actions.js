@@ -4,6 +4,7 @@ import {
     UPDATE_USER_LEVEL,
     ADD_ITEM,
     UPDATE_ITEMS,
+    UPDATE_CASES_INFO,
 } from './types';
 
 export const setUserData = (item) => ({
@@ -27,5 +28,10 @@ export const addItem = (item) => ({
 
 export const updateItems = (item) => ({
     type: UPDATE_ITEMS,
+    item,
+});
+
+export const updateCasesInfo = (item) => ({
+    type: UPDATE_CASES_INFO,
     item,
 });

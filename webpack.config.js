@@ -30,14 +30,6 @@ module.exports = (env) => {
                     loader: 'babel-loader',
                 },
                 {
-                    test: /\.(png|jpe?g|gif)$/i,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                        },
-                    ],
-                },
-                {
                     test: /\.scss$/,
                     use: [
                         { loader: 'style-loader' },
@@ -53,6 +45,10 @@ module.exports = (env) => {
                         },
                         { loader: 'sass-loader' },
                     ],
+                },
+                {
+                    test: /\.(jpe?g|png|gif|mp3|svg$)$/i,
+                    loader: 'file-loader',
                 },
             ],
         },

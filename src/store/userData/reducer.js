@@ -5,6 +5,7 @@ import {
     UPDATE_USER_LEVEL,
     ADD_ITEM,
     UPDATE_ITEMS,
+    UPDATE_CASES_INFO,
 } from './types';
 
 const initialState = {
@@ -57,6 +58,12 @@ const userDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: action.item,
+            };
+        }
+        case UPDATE_CASES_INFO: {
+            return {
+                ...state,
+                cases: action.item,
             };
         }
         default:

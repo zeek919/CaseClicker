@@ -10,7 +10,12 @@ import CaseOpenModal from '../../CaseOpenModal/CaseOpenModal';
 import DrawnedSkinModalContent from '../../DrawnedSkinModalContent/DrawnedSkinModalContent';
 import { addItem } from '../../../store/userData/actions';
 
-const SkinBox = ({ skinArray, addItemAction, itemsFromReducer }) => {
+const SkinBox = ({
+    skinArray,
+    addItemAction,
+    itemsFromReducer,
+    removeOpenedCase,
+}) => {
     const [rolling, turnOnRolling] = useState(false);
     const [itemsToShow, setItemsToShow] = useState([]);
     const [display, setDisplay] = useState(false);
@@ -33,6 +38,7 @@ const SkinBox = ({ skinArray, addItemAction, itemsFromReducer }) => {
             setItemsToShow(skinsToShowContainer);
             addItemAction(itemsToShow[33]);
         }, 1500);
+        removeOpenedCase();
     };
 
     return (

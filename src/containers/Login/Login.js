@@ -32,6 +32,7 @@ const Login = ({ history, loginUserAction, casesAction, cases }) => {
         <div className={style.box}>
             <img src={logo} alt="logo" className={style.logo} />
             <div className={style.wrapper}>
+                <div className={style.insideWrapper}>
                 <div className={style.errorWrapper}>
                     <p>{error}</p>
                 </div>
@@ -67,6 +68,7 @@ const Login = ({ history, loginUserAction, casesAction, cases }) => {
                             history.push('/register');
                         }}
                     />
+                </div>
                 </div>
             </div>
         </div>

@@ -12,6 +12,12 @@
 
 .root {
     height: 100vh;
-    background: #414055;
+    // background: rgb(0, 25, 92);
+    // background: radial-gradient(
+    //     circle,
+    //     rgba(0, 25, 92, 0.8799894957983193) 80%,
+    //     rgba(0, 0, 0, 1) 100%
+    // );
     box-shadow: inset 0px 4px 250px rgba(0, 0, 0, 0.25);
+    background-image: url('../../assets/images/background.jpg');
 }
