@@ -18,6 +18,8 @@ module.exports = (env) => {
         watch: true,
         devtool: 'source-map',
         devServer: {
+            historyApiFallback: true,
+            contentBase: './',
             contentBase: './dist',
             hot: true,
         },
@@ -26,14 +28,6 @@ module.exports = (env) => {
                 {
                     test: /\.js?$/,
                     loader: 'babel-loader',
-                },
-                {
-                    test: /\.(png|jpe?g|gif)$/i,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                        },
-                    ],
                 },
                 {
                     test: /\.scss$/,
@@ -51,6 +45,10 @@ module.exports = (env) => {
                         },
                         { loader: 'sass-loader' },
                     ],
+                },
+                {
+                    test: /\.(jpe?g|png|gif|mp3|svg$)$/i,
+                    loader: 'file-loader',
                 },
             ],
         },

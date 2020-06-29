@@ -1,4 +1,9 @@
-const SET_USER_DATA = 'SET_USER_DATA';
-const SET_MONEY = 'SET_MONEY';
-
-export default { SET_USER_DATA, SET_MONEY };
+export const SET_USER_DATA = 'SET_USER_DATA';
+export const SET_USERNAME = 'SET_USERNAME';
+export const SET_MONEY = 'SET_MONEY';
+export const SET_USER_UID = 'SET_USER_UID';
+export const UPDATE_USER_LEVEL = 'UPDATE_USER_LEVEL';
+export const ADD_ITEM = 'ADD_ITEM';
+export const UPDATE_ITEMS = 'UPDATE_ITEMS';
+export const UPDATE_CASES_INFO = 'UPDATE_CASES_INFO';
+export const DECREMENT_CASE_DATA = 'DECREMENT_CASE_DATA';

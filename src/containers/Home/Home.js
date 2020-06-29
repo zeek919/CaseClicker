@@ -1,26 +1,51 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUserData } from '../../services/firebaseInit';
 import Navbar from '../../components/Navbar/Navbar';
 import navbarHeaders from '../../constants/navbarHeaders';
 import MoneyClickBox from '../../components/MoneyClickBox/MoneyClickBox';
-import style from './Home.scss';
+import ExperienceClickBox from '../../components/ExperienceClickBox/ExperienceClickBox';
+import setLevels from '../../store/levels/operations';
+import { updateUserData } from '../../store/userData/operations';
+import setShopData from '../../store/shop/operation';
+import { Wrapper, ButtonsWrapper } from './StyledComponents';
 
-class Home extends Component {
+class Home extends PureComponent {
+    state = {
+        isLoaded: true,
+    };
+
+    async componentDidMount() {
+        const { setLevelsAction, setShopDataAction } = this.props;
+        await setLevelsAction();
+        await setShopDataAction();
+        await this.setState({ isLoaded: false });
+    }
+
     async componentWillUnmount() {
-        const { money, currentTap, experience, items } = this.props;
-        await updateUserData(money, currentTap, experience, items);
+        const { updateUserDataAction } = this.props;
+        await updateUserDataAction();
     }
 
     render() {
-        return (
-            <div className={style.wrapper}>
-                <Navbar navHeadersArray={navbarHeaders} />
-                <div className={style.clickWrapper}>
-                    <MoneyClickBox />
+        const { isLoaded } = this.state;
+
+        if (isLoaded) {
+            return (
+                <div>
+                    <p>loading</p>
                 </div>
-            </div>
+            );
+        }
+
+        return (
+            <Wrapper>
+                <Navbar navHeadersArray={navbarHeaders} />
+                <ButtonsWrapper>
+                    <MoneyClickBox />
+                    <ExperienceClickBox />
+                </ButtonsWrapper>
+            </Wrapper>
         );
     }
 }
@@ -33,9 +58,12 @@ const mapStateToProps = (state) => ({
 });
 
 Home.propTypes = {
-    money: PropTypes.number.isRequired,
-    currentTap: PropTypes.number.isRequired,
-    experience: PropTypes.number.isRequired,
+    setLevelsAction: PropTypes.func.isRequired,
+    updateUserDataAction: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, {
+    setLevelsAction: setLevels,
+    updateUserDataAction: updateUserData,
+    setShopDataAction: setShopData,
+})(Home);

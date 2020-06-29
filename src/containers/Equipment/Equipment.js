@@ -1,16 +1,39 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import {
+    Wrapper,
+    InsideWrapper,
+    Header,
+    ContentWrapper,
+} from './StyledComponents';
+import { connect } from 'react-redux';
 import Navbar from '../../components/Navbar/Navbar';
 import navbarHeaders from '../../constants/navbarHeaders';
-import style from './Equipment.scss';
+import OwnedSkinBoxes from '../../components/OwnedSkinBoxes/OwnedSkinBoxes';
+import { updateUserData } from '../../store/userData/operations';
 
-class Equipment extends Component {
+class Equipment extends PureComponent {
+    async componentWillUnmount() {
+        const { updateUserDataAction } = this.props;
+        await updateUserDataAction();
+    }
+
     render() {
         return (
-            <div className={style.wrapper}>
+            <>
                 <Navbar navHeadersArray={navbarHeaders} />
-            </div>
+                <Wrapper>
+                    <InsideWrapper>
+                        <Header>Equipment</Header>
+                        <ContentWrapper>
+                            <OwnedSkinBoxes />
+                        </ContentWrapper>
+                    </InsideWrapper>
+                </Wrapper>
+            </>
         );
     }
 }
 
-export default Equipment;
+export default connect(null, {
+    updateUserDataAction: updateUserData,
+})(Equipment);

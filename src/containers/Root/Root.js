@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Home from '../Home/Home';
 import Equipment from '../Equipment/Equipment';
+import Cases from '../Cases/Cases';
+import Shop from '../Shop/Shop';
 import style from './Root.scss';
 
-class Root extends Component {
+class Root extends PureComponent {
     render() {
         return (
             <div className={style.root}>
@@ -16,8 +18,8 @@ class Root extends Component {
                         <Route path="/register" component={Register} />
                         <Route path="/home" component={Home} />
                         <Route path="/equipment" component={Equipment} />
-                        <Route path="/cases" component="" />
-                        <Route path="/shop" component="" />
+                        <Route path="/cases" component={Cases} />
+                        <Route path="/shop" component={Shop} />
                         <Route path="/upgrades" component="" />
                     </Switch>
                 </Router>

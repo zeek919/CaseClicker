@@ -2,11 +2,19 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import FormButton from '../../components/FormButton/FormButton';
-import style from './Register.scss';
-import { register } from '../../services/firebaseInit';
+import { connect } from 'react-redux';
 import logo from '../../assets/images/Logo.png';
+import { register } from '../../store/userData/operations';
+import {
+    Box,
+    Wrapper,
+    InsideWrapper,
+    ButtonWrapper,
+    ContentForm,
+    ErrorWrapper,
+} from './StyledComponents';
 
-const Register = withRouter(({ history }) => {
+const Register = withRouter(({ history, registerAction }) => {
     const [nick, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,56 +22,58 @@ const Register = withRouter(({ history }) => {
 
     const signUp = async (nickValue, emailValue, passwordValue) => {
         try {
-            await register(nickValue, emailValue, passwordValue);
+            await registerAction(nickValue, emailValue, passwordValue);
         } catch (err) {
             catchError(err.message);
         }
     };
 
     return (
-        <div className={style.box}>
-            <img src={logo} alt="logo" className={style.logo} />
-            <div className={style.wrapper}>
-                <div className={style.errorWrapper}>
-                    <p>{error}</p>
-                </div>
-                <form>
-                    <Input
-                        label="NICK"
-                        id="form__register--nick"
-                        onChange={(e) => setNick(e.target.value)}
-                    />
-                    <div className={style.margin}>
+        <Box>
+            {/*<img src={logo} alt="logo" className={style.logo} />*/}
+            <Wrapper>
+                <InsideWrapper>
+                    <ErrorWrapper>
+                        <p>{error}</p>
+                    </ErrorWrapper>
+                    <ContentForm>
+                        <Input
+                            label="NICK"
+                            onChange={(e) => setNick(e.target.value)}
+                        />
+
                         <Input
                             label="E-MAIL"
-                            id="form__register--email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                    </div>
-                    <div className={style.margin}>
+
                         <Input
                             label="PASSWORD"
-                            id="form__register--password"
                             type="password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                    </div>
-                </form>
-                <div className={style.wrapper__button}>
-                    <FormButton
-                        content="LOGIN"
-                        onClick={() => {
-                            history.push('/');
-                        }}
-                    />
-                    <FormButton
-                        content="REGISTER"
-                        onClick={() => signUp(nick, email, password)}
-                    />
-                </div>
-            </div>
-        </div>
+                    </ContentForm>
+                    <ButtonWrapper>
+                        <FormButton
+                            content="LOGIN"
+                            onClick={() => {
+                                history.push('/');
+                            }}
+                        />
+                        <FormButton
+                            content="REGISTER"
+                            onClick={() => signUp(nick, email, password)}
+                        />
+                    </ButtonWrapper>
+                </InsideWrapper>
+            </Wrapper>
+        </Box>
     );
 });
 
-export default Register;
+export default React.memo(
+    connect(null, {
+        registerAction: (nick, email, password) =>
+            register(nick, email, password),
+    })(Register)
+);
