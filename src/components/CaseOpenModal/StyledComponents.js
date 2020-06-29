@@ -41,7 +41,6 @@ export const Backdrop = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba($color: #000000, $alpha: 0.5);
-    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 0;
 `;

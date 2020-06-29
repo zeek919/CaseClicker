@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './FormButton.scss';
+import { Button } from './StyledComponents';
 
 const FormButton = ({ content, onClick }) => (
-    <button type="button" className={style.button} onClick={onClick}>
+    <Button type="button" onClick={onClick}>
         {content}
-    </button>
+    </Button>
 );
 
 FormButton.propTypes = {

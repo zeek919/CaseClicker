@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     Wrapper,
@@ -14,7 +14,7 @@ import { SHOP_BAR } from '../../constants/shopBar';
 import ShopItems from '../../components/ShopItems/ShopItems';
 import { updateCasesInfo, updateMoney } from '../../store/userData/actions';
 
-class Shop extends PureComponent {
+class Shop extends Component {
     state = {
         headersLength: 0,
         currentIndex: 0,
@@ -51,7 +51,6 @@ class Shop extends PureComponent {
             currentHeader: SHOP_BAR[tempIndex],
             data: this.props[SHOP_BAR[tempIndex]],
         });
-        console.log(this.state.data);
     };
 
     buyHandler = (itemName, itemPrice) => {

@@ -66,6 +66,18 @@ export const ContentWrapper = styled.div`
         rgba(68, 25, 125, 1) 0%,
         rgba(10, 10, 10, 1) 100%
     );
+
+    &::-webkit-scrollbar {
+        box-shadow: inset 0 0 2px grey;
+        border-radius: 10px;
+        background-color: black;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: white;
+    }
 `;
 
 export const ShopWrapper = styled.div``;

@@ -8,12 +8,3 @@ export const firebaseConfig = {
     appId: '1:816843676597:web:a510ffcd08b89bd24b17fc',
     measurementId: 'G-Z62R9T5M1Z',
 };
-
-// export const register = async (nick, email, password) => {
-//     const createUser = await firebase
-//         .auth()
-//         .createUserWithEmailAndPassword(email, password);
-//     await createUser.user.updateProfile({
-//         displayName: nick,
-//     });
-// };

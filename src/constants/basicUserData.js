@@ -6,9 +6,9 @@ const BASIC_USER_DATA = {
     level: 1,
     items: [],
     cases: [
-        { name: 'Operation Bravo', count: 0, keys: 0 },
-        { name: 'CS:GO Weapon Case', count: 0, keys: 0 },
-        { name: 'CS:GO Weapon Case 2', count: 0, keys: 0 },
+        { name: 'Operation Bravo Case', cases: 0, keys: 0 },
+        { name: 'CS:GO Weapon Case', cases: 0, keys: 0 },
+        { name: 'CS:GO Weapon Case 2', cases: 0, keys: 0 },
     ],
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { ItemInRoll } from './StyledComponents';
-import style from './SkinBox.scss';
+import { ItemInRoll } from '../StyledComponents';
 
 const SkinInRollBoard = ({ itemsToShow }) => {
     const generateKey = () => {
@@ -10,7 +9,7 @@ const SkinInRollBoard = ({ itemsToShow }) => {
 
     const skinsRoll = itemsToShow.map((item) => (
         <ItemInRoll color={item.color} key={generateKey()}>
-            <img src={item.image} alt={item.name} className={style.rollImage} />
+            <img src={item.image} alt={item.name} />
         </ItemInRoll>
     ));
 

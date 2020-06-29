@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, InfoBox } from './StyledComponents';
+import { Box, InfoBox } from '../StyledComponents';
 
 const SkinInCollection = ({ skinArray }) => {
     const generateKey = () => {

@@ -1,5 +1,29 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div``;
+
+export const RollWrapper = styled.div`
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const CollectionWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
+`;
+
+export const RollBoard = styled.div`
+    display: flex;
+    overflow-x: hidden;
+    height: 13em;
+    width: 40vw;
+    background-color: #0f0f13;
+`;
+
 export const Box = styled.div`
     border: 1px solid ${(props) => props.color};
     border-bottom: 0px;
@@ -61,4 +85,6 @@ export const RollButton = styled.button`
         rgba(10, 10, 10, 1) 100%
     );
     color: white;
+    pointer-events: ${(props) =>
+        !props.locked && props.avilable ? ' auto' : 'none'};
 `;

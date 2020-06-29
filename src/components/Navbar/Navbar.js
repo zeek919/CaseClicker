@@ -1,41 +1,47 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import style from './Navbar.scss';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import {
+    Wrapper,
+    NavLinkStyled,
+    UserWrapper,
+    LinkWrapper,
+    SpecialButton,
+    Bolded,
+} from './StyledComponents';
 
 const Navbar = ({ navHeadersArray }) => {
+    const userStore = useSelector((store) => store.userDataReducer);
+
+    const [currentLink, setLink] = useState('');
+    useEffect(() => setLink(window.location.href), []);
+
+    const correctLinkHover = (header) =>
+        currentLink.includes(header.toLowerCase());
+
     const navLink = navHeadersArray.map((item) => (
-        <NavLink key={item.header} to={item.link} className={style.link}>
+        <NavLinkStyled
+            key={item.header}
+            to={item.link}
+            correctLinkHover={correctLinkHover(item.header)}
+        >
             {item.header}
-        </NavLink>
+        </NavLinkStyled>
     ));
 
-    const [active, setActive] = useState(false);
-
     return (
-        <div className={style.menuWrapper}>
-            <div
-                className={
-                    active
-                        ? style.wrapperHamburgerActive
-                        : style.wrapperHamburger
-                }
-            >
+        <Wrapper>
+            <UserWrapper>
+                <p>{userStore.userName}</p>
+                <Bolded>{userStore.money.toFixed(4)}$</Bolded>
+            </UserWrapper>
+            <LinkWrapper>
                 {navLink}
-            </div>
-            <button
-                onClick={() => setActive(!active)}
-                type="button"
-                className={active ? style.hamburgerActive : style.hamburger}
-            >
-                <div className={active ? style.activeLine1 : style.line1} />
-                <div className={active ? style.activeLine2 : style.line2} />
-                <div className={active ? style.activeLine3 : style.line3} />
-            </button>
-        </div>
+                <SpecialButton key={'logout'} to={'/'}>
+                    LOG OUT!
+                </SpecialButton>
+            </LinkWrapper>
+        </Wrapper>
     );
 };
-
-Navbar.propTypes = {};
 
 export default Navbar;

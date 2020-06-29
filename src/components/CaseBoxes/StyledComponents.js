@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const CaseBox = styled.div`
     background: #21202b;
+    margin: 10px;
     box-shadow: inset 0px 0px 150px rgba(0, 0, 0, 0.5);
     padding: 10px;
     height: min-content;
@@ -29,4 +30,19 @@ export const SellButton = styled.button`
     background: linear-gradient(180deg, #000000 0%, rgba(91, 91, 91, 0) 100%),
         #353535;
     pointer-events: ${(props) => !props.exist};
+`;
+
+export const CaseWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+
+export const CountHeader = styled.h2`
+    text-align: center;
+    color: white;
+`;
+
+export const Image = styled.img`
+    width: 250px;
 `;

@@ -1,4 +1,5 @@
 import {
+    SET_USERNAME,
     SET_MONEY,
     SET_USER_DATA,
     SET_USER_UID,
@@ -6,10 +7,12 @@ import {
     ADD_ITEM,
     UPDATE_ITEMS,
     UPDATE_CASES_INFO,
+    DECREMENT_CASE_DATA,
 } from './types';
 
 const initialState = {
     uid: '',
+    userName: '',
     money: 0,
     currentTap: 0.001,
     experience: 0,
@@ -24,6 +27,12 @@ const userDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 uid: action.payload,
+            };
+        }
+        case SET_USERNAME: {
+            return {
+                ...state,
+                userName: action.payload,
             };
         }
         case SET_USER_DATA: {
@@ -64,6 +73,17 @@ const userDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cases: action.item,
+            };
+        }
+        case DECREMENT_CASE_DATA: {
+            const { item } = action.payload;
+            const decrementedValues = {
+                cases: item.cases--,
+                keys: item.keys--,
+            };
+            return {
+                ...state,
+                cases: { ...cases, [item]: decrementedValues },
             };
         }
         default:

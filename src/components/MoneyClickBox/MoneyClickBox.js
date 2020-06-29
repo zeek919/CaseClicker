@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dolar from '../../assets/images/dolar.png';
-import style from './MoneyClickBox.scss';
 import { updateMoney } from '../../store/userData/actions';
+import { MoneyButton, Image, TextWrapper } from './StyledComponents';
 
 const MoneyClickBox = ({ money, currentTap, setMoney }) => {
     const [tappedCount, setTappedCount] = useState(0);
@@ -22,19 +22,18 @@ const MoneyClickBox = ({ money, currentTap, setMoney }) => {
     };
 
     return (
-        <button
+        <MoneyButton
             type="button"
-            className={style.wrapper}
             onClick={() => {
                 onClickHandler();
             }}
         >
-            <img src={dolar} alt="dolar" className={style.image} />
-            <div className={style.textWrapper}>
+            <Image src={dolar} alt="dolar" />
+            <TextWrapper>
                 <h1>{money.toFixed(4)} $</h1>
                 <h3>Current Tap: {tappedValue.toFixed(4)}</h3>
-            </div>
-        </button>
+            </TextWrapper>
+        </MoneyButton>
     );
 };
 

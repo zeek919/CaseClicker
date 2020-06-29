@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -8,7 +8,7 @@ import Cases from '../Cases/Cases';
 import Shop from '../Shop/Shop';
 import style from './Root.scss';
 
-class Root extends Component {
+class Root extends PureComponent {
     render() {
         return (
             <div className={style.root}>

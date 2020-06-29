@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,6 +49,7 @@ export const Header = styled.div`
 
 export const ContentWrapper = styled.div`
     display: flex;
+    justify-content: center;
     padding: 25px;
     margin-top: 3em;
     box-shadow: inset 0px 1px 19px 0px rgba(0, 0, 0, 0.75);
@@ -66,4 +66,16 @@ export const ContentWrapper = styled.div`
         rgba(68, 25, 125, 1) 0%,
         rgba(10, 10, 10, 1) 100%
     );
+
+    &::-webkit-scrollbar {
+        box-shadow: inset 0 0 2px grey;
+        border-radius: 10px;
+        background-color: black;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: white;
+    }
 `;

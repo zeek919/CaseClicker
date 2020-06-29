@@ -10,6 +10,7 @@ import { firebaseConfig } from './services/firebaseInit';
 firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 firebase.auth();
+const firebaseAuth = firebase.auth();
 const firestore = firebase.firestore();
 
 const store = createStore(
@@ -18,7 +19,7 @@ const store = createStore(
         applyMiddleware(
             thunk.withExtraArgument({
                 services: {
-                    firebase,
+                    firebaseAuth,
                     firestore,
                 },
             }),

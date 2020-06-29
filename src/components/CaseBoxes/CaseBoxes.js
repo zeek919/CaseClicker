@@ -1,13 +1,19 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-confusing-arrow */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import CaseOpenModal from '../CaseOpenModal/CaseOpenModal';
-import { CaseBox, OpenButton, SellButton } from './StyledComponents';
-import SkinBox from './SkinBox/SkinBox';
-import { updateCasesInfo } from '../../store/userData/actions';
-import style from './CaseBoxes.scss';
+import {
+    CaseBox,
+    OpenButton,
+    SellButton,
+    CaseWrapper,
+    CountHeader,
+    Image,
+} from './StyledComponents';
+import SkinBox from '../SkinBox/SkinBox';
+import {
+    decrementCaseInfo,
+    updateCasesInfo,
+} from '../../store/userData/actions';
 
 const CaseBoxes = ({ casesData, userCasesInfo, updateCasesInfoAction }) => {
     const caseBoxes = casesData.map((singleCase) => {
@@ -22,7 +28,7 @@ const CaseBoxes = ({ casesData, userCasesInfo, updateCasesInfoAction }) => {
 
             const correctCaseIndex = correctCase.indexOf(true);
             temporaryCasesInfo[correctCaseIndex].keys--;
-            temporaryCasesInfo[correctCaseIndex].count--;
+            temporaryCasesInfo[correctCaseIndex].cases--;
 
             updateCasesInfoAction(temporaryCasesInfo);
         };
@@ -41,21 +47,34 @@ const CaseBoxes = ({ casesData, userCasesInfo, updateCasesInfoAction }) => {
             item.name === singleCase.name ? item.cases : null
         );
 
+        const caseKeys = userCasesInfo.map((item) =>
+            item.name === singleCase.name ? item.keys : null
+        );
+
+        const isCaseAvailable = userCasesInfo
+            .map(
+                (item) =>
+                    item.name === singleCase.name &&
+                    item.keys > 0 &&
+                    item.cases > 0
+            )
+            .includes(true);
+
         return (
             <CaseBox exist={isGotten()} key={singleCase.name}>
                 <CaseOpenModal isOpen={display} close={closeModal}>
                     <SkinBox
                         skinArray={singleCase.items}
+                        isCaseAvailable={isCaseAvailable}
                         removeOpenedCase={removeOpenedCase}
                     />
                 </CaseOpenModal>
 
-                <h2 className={style.count}>{caseCount}</h2>
-                <img
-                    src={singleCase.image}
-                    alt={singleCase.id}
-                    className={style.image}
-                />
+                <CountHeader>
+                    <p>Case: {caseCount}</p>
+                    <p>Keys: {caseKeys}</p>
+                </CountHeader>
+                <Image src={singleCase.image} alt={singleCase.id} />
                 <OpenButton exist={isGotten()} onClick={() => setDisplay(true)}>
                     Open Now!
                 </OpenButton>
@@ -66,11 +85,12 @@ const CaseBoxes = ({ casesData, userCasesInfo, updateCasesInfoAction }) => {
         );
     });
 
-    return caseBoxes;
+    return <CaseWrapper>{caseBoxes}</CaseWrapper>;
 };
 
 const mapDispatchToProps = (dispatch) => ({
     updateCasesInfoAction: (item) => dispatch(updateCasesInfo(item)),
+    decrementCaseInfoAction: (item) => dispatch(decrementCaseInfo(item)),
 });
 
 export default connect(null, mapDispatchToProps)(CaseBoxes);

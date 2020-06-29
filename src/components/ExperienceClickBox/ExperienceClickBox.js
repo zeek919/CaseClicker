@@ -3,8 +3,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes, { shape } from 'prop-types';
 import { connect } from 'react-redux';
 import { updateLevel } from '../../store/userData/actions';
-import { Loader, LoaderWrapper } from './StyledComponents';
-import style from './ExperienceClickBox.scss';
+import {
+    Loader,
+    LoaderWrapper,
+    ExperienceButton,
+    Image,
+    TextWrapper,
+    ContentWrapper,
+    DataWrapper,
+} from './StyledComponents';
 
 const ExperienceClickBox = ({ levels, experience, updateLevelAction }) => {
     const [name, getName] = useState();
@@ -33,24 +40,27 @@ const ExperienceClickBox = ({ levels, experience, updateLevelAction }) => {
     };
 
     return (
-        <button
+        <ExperienceButton
             type="button"
-            className={style.wrapper}
             onClick={() => {
                 onClickHandler();
             }}
         >
-            <img src={image} alt="dolar" className={style.image} />
-            <div className={style.dataWrapper}>
-                <div>{name}</div>
-                <div className={style.textWrapper}>
-                    {experience} / {maxExp}
-                </div>
-                <LoaderWrapper>
-                    <Loader length={calculateLoaderPercent()} />
-                </LoaderWrapper>
-            </div>
-        </button>
+            <Image src={image} alt="dolar" />
+            <DataWrapper>
+                <h1>{name}</h1>
+                <ContentWrapper>
+                    <TextWrapper>
+                        <h3>
+                            {experience} / {maxExp}
+                        </h3>
+                    </TextWrapper>
+                    <LoaderWrapper>
+                        <Loader length={calculateLoaderPercent()} />
+                    </LoaderWrapper>
+                </ContentWrapper>
+            </DataWrapper>
+        </ExperienceButton>
     );
 };
 

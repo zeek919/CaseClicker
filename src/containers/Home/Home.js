@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Navbar from '../../components/Navbar/Navbar';
@@ -7,19 +7,19 @@ import MoneyClickBox from '../../components/MoneyClickBox/MoneyClickBox';
 import ExperienceClickBox from '../../components/ExperienceClickBox/ExperienceClickBox';
 import setLevels from '../../store/levels/operations';
 import { updateUserData } from '../../store/userData/operations';
-import setShopData  from '../../store/shop/operation';
-import style from './Home.scss';
+import setShopData from '../../store/shop/operation';
+import { Wrapper, ButtonsWrapper } from './StyledComponents';
 
-class Home extends Component {
+class Home extends PureComponent {
     state = {
-        isLoaded: false,
+        isLoaded: true,
     };
 
     async componentDidMount() {
         const { setLevelsAction, setShopDataAction } = this.props;
         await setLevelsAction();
         await setShopDataAction();
-        await this.setState({ isLoaded: true });
+        await this.setState({ isLoaded: false });
     }
 
     async componentWillUnmount() {
@@ -28,22 +28,25 @@ class Home extends Component {
     }
 
     render() {
-        if (!this.state.isLoaded) {
+        const { isLoaded } = this.state;
+
+        if (isLoaded) {
             return (
                 <div>
-                    <p>Loading</p>
+                    <p>loading</p>
                 </div>
             );
-        } else
-            return (
-                <div className={style.wrapper}>
-                    <Navbar navHeadersArray={navbarHeaders} />
-                    <div className={style.clickWrapper}>
-                        <MoneyClickBox />
-                        <ExperienceClickBox />
-                    </div>
-                </div>
-            );
+        }
+
+        return (
+            <Wrapper>
+                <Navbar navHeadersArray={navbarHeaders} />
+                <ButtonsWrapper>
+                    <MoneyClickBox />
+                    <ExperienceClickBox />
+                </ButtonsWrapper>
+            </Wrapper>
+        );
     }
 }
 
