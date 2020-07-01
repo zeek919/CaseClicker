@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import FormButton from '../../components/FormButton/FormButton';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import logo from '../../assets/images/Logo.png';
 import { register } from '../../store/userData/operations';
 import {
@@ -14,7 +14,8 @@ import {
     ErrorWrapper,
 } from './StyledComponents';
 
-const Register = withRouter(({ history, registerAction }) => {
+const Register = withRouter(({ history }) => {
+    const dispatch = useDispatch();
     const [nick, setNick] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,7 +23,7 @@ const Register = withRouter(({ history, registerAction }) => {
 
     const signUp = async (nickValue, emailValue, passwordValue) => {
         try {
-            await registerAction(nickValue, emailValue, passwordValue);
+            await dispatch(register(nickValue, emailValue, passwordValue));
         } catch (err) {
             catchError(err.message);
         }
@@ -30,7 +31,6 @@ const Register = withRouter(({ history, registerAction }) => {
 
     return (
         <Box>
-            {/*<img src={logo} alt="logo" className={style.logo} />*/}
             <Wrapper>
                 <InsideWrapper>
                     <ErrorWrapper>
@@ -71,9 +71,4 @@ const Register = withRouter(({ history, registerAction }) => {
     );
 });
 
-export default React.memo(
-    connect(null, {
-        registerAction: (nick, email, password) =>
-            register(nick, email, password),
-    })(Register)
-);
+export default React.memo(Register);

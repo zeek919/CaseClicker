@@ -6,10 +6,9 @@ import {
     ShopWrapper,
     Image,
 } from './StyledComponents';
+import { generateKey } from '../../helpers';
 
 const ShopItems = ({ products, buyHandler, money }) => {
-    const generateKey = () => Math.random();
-
     const isAvailable = (itemPrice) => itemPrice <= money;
 
     const productsList = Object.values(products).map((item) => (

@@ -5,6 +5,7 @@ import {
     UPDATE_USER_LEVEL,
     ADD_ITEM,
     UPDATE_ITEMS,
+    REMOVE_ITEMS,
     UPDATE_CASES_INFO,
     DECREMENT_CASE_DATA,
 } from './types';
@@ -36,6 +37,11 @@ export const addItem = (item) => ({
 export const updateItems = (item) => ({
     type: UPDATE_ITEMS,
     item,
+});
+
+export const removeItems = (item) => ({
+    type: REMOVE_ITEMS,
+    payload: item,
 });
 
 export const updateCasesInfo = (item) => ({

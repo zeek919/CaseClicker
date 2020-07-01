@@ -8,8 +8,9 @@ import {
     SpecialButton,
     Bolded,
 } from './StyledComponents';
+import NAVBAR_HEADER from '../../constants/navbarHeaders';
 
-const Navbar = ({ navHeadersArray }) => {
+const Navbar = () => {
     const userStore = useSelector((store) => store.userDataReducer);
 
     const [currentLink, setLink] = useState('');
@@ -18,7 +19,7 @@ const Navbar = ({ navHeadersArray }) => {
     const correctLinkHover = (header) =>
         currentLink.includes(header.toLowerCase());
 
-    const navLink = navHeadersArray.map((item) => (
+    const navLink = NAVBAR_HEADER.map((item) => (
         <NavLinkStyled
             key={item.header}
             to={item.link}

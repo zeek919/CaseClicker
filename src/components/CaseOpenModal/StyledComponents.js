@@ -22,7 +22,7 @@ export const Main = styled.div`
         rgba(10, 10, 10, 1) 100%
     );
     border-radius: 15px;
-    border: ${(props) => (props.color ? 'none' : 'none')};
+    border: none};
 
     &::-webkit-scrollbar {
         box-shadow: inset 0 0 2px grey;

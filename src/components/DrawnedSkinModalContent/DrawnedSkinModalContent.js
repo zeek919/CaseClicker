@@ -6,6 +6,7 @@ import {
     Button,
     Image,
 } from './StyledComponents';
+import PropTypes from 'prop-types';
 
 const DrawnedSkinModalContent = ({ drawnedSkin, close }) => (
     <Wrapper>
@@ -22,5 +23,10 @@ const DrawnedSkinModalContent = ({ drawnedSkin, close }) => (
         <Button onClick={close}>OK</Button>
     </Wrapper>
 );
+
+DrawnedSkinModalContent.propTypes = {
+    drawnedSkin: PropTypes.object.isRequired,
+    close: PropTypes.func.isRequired,
+};
 
 export default DrawnedSkinModalContent;

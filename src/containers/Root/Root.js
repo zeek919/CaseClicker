@@ -6,6 +6,7 @@ import Home from '../Home/Home';
 import Equipment from '../Equipment/Equipment';
 import Cases from '../Cases/Cases';
 import Shop from '../Shop/Shop';
+import Upgrades from '../Upgrades/Upgrades';
 import style from './Root.scss';
 
 class Root extends PureComponent {
@@ -20,7 +21,7 @@ class Root extends PureComponent {
                         <Route path="/equipment" component={Equipment} />
                         <Route path="/cases" component={Cases} />
                         <Route path="/shop" component={Shop} />
-                        <Route path="/upgrades" component="" />
+                        <Route path="/upgrades" component={Upgrades} />
                     </Switch>
                 </Router>
             </div>

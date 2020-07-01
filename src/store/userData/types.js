@@ -5,5 +5,6 @@ export const SET_USER_UID = 'SET_USER_UID';
 export const UPDATE_USER_LEVEL = 'UPDATE_USER_LEVEL';
 export const ADD_ITEM = 'ADD_ITEM';
 export const UPDATE_ITEMS = 'UPDATE_ITEMS';
+export const REMOVE_ITEMS = 'REMOVE_ITEMS';
 export const UPDATE_CASES_INFO = 'UPDATE_CASES_INFO';
 export const DECREMENT_CASE_DATA = 'DECREMENT_CASE_DATA';

@@ -40,7 +40,7 @@ class Home extends PureComponent {
 
         return (
             <Wrapper>
-                <Navbar navHeadersArray={navbarHeaders} />
+                <Navbar />
                 <ButtonsWrapper>
                     <MoneyClickBox />
                     <ExperienceClickBox />

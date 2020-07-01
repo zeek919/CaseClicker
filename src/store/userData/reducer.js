@@ -6,6 +6,7 @@ import {
     UPDATE_USER_LEVEL,
     ADD_ITEM,
     UPDATE_ITEMS,
+    REMOVE_ITEMS,
     UPDATE_CASES_INFO,
     DECREMENT_CASE_DATA,
 } from './types';
@@ -69,6 +70,18 @@ const userDataReducer = (state = initialState, action) => {
                 items: action.item,
             };
         }
+        case REMOVE_ITEMS: {
+            const { payload } = action;
+            const { money, items } = state;
+            const index = items.findIndex(
+                (singleSkin) => singleSkin === payload
+            );
+            items.splice(index, 1);
+            return {
+                ...state,
+                money: money + payload.price,
+            };
+        }
         case UPDATE_CASES_INFO: {
             return {
                 ...state,
@@ -76,15 +89,16 @@ const userDataReducer = (state = initialState, action) => {
             };
         }
         case DECREMENT_CASE_DATA: {
-            const { item } = action.payload;
-            const decrementedValues = {
-                cases: item.cases--,
-                keys: item.keys--,
-            };
-            return {
-                ...state,
-                cases: { ...cases, [item]: decrementedValues },
-            };
+            const { payload } = action;
+
+            state.cases.map((item) => {
+                if (item.name === payload) {
+                    item.cases -= 1;
+                    item.keys -= 1;
+                }
+            });
+
+            return state;
         }
         default:
             return state;

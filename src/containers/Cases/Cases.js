@@ -18,20 +18,19 @@ class Cases extends Component {
     }
 
     render() {
-        const { casesData, userCasesInfo } = this.props;
+        const { casesData } = this.props;
+
+        const caseContainer = casesData.map((singleCaseData) => (
+            <CaseBoxes casesData={singleCaseData} />
+        ));
 
         return (
             <>
-                <Navbar navHeadersArray={navbarHeaders} />
+                <Navbar />
                 <Wrapper>
                     <InsideWrapper>
                         <Header>Cases</Header>
-                        <ContentWrapper>
-                            <CaseBoxes
-                                casesData={casesData}
-                                userCasesInfo={userCasesInfo}
-                            />
-                        </ContentWrapper>
+                        <ContentWrapper>{caseContainer}</ContentWrapper>
                     </InsideWrapper>
                 </Wrapper>
             </>
@@ -41,7 +40,6 @@ class Cases extends Component {
 
 const mapStateToProps = (state) => ({
     casesData: state.casesReducer.cases,
-    userCasesInfo: state.userDataReducer.cases,
 });
 
 export default connect(mapStateToProps, {

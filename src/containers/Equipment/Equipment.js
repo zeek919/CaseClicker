@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
     Wrapper,
     InsideWrapper,
@@ -11,7 +11,7 @@ import navbarHeaders from '../../constants/navbarHeaders';
 import OwnedSkinBoxes from '../../components/OwnedSkinBoxes/OwnedSkinBoxes';
 import { updateUserData } from '../../store/userData/operations';
 
-class Equipment extends PureComponent {
+class Equipment extends Component {
     async componentWillUnmount() {
         const { updateUserDataAction } = this.props;
         await updateUserDataAction();
@@ -20,7 +20,7 @@ class Equipment extends PureComponent {
     render() {
         return (
             <>
-                <Navbar navHeadersArray={navbarHeaders} />
+                <Navbar />
                 <Wrapper>
                     <InsideWrapper>
                         <Header>Equipment</Header>

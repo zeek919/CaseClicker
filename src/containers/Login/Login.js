@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Input from '../../components/Input/Input';
 import FormButton from '../../components/FormButton/FormButton';
 import { login } from '../../store/userData/operations';
-import logo from '../../assets/images/Logo.png';
 import getCasesData from '../../store/cases/operations';
 import {
     Box,
@@ -15,18 +14,19 @@ import {
     ButtonWrapper,
 } from './StyledComponents';
 
-const Login = ({ history, loginUserAction, casesAction, cases }) => {
+const Login = ({ history }) => {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, catchError] = useState('');
 
     useEffect(() => {
-        casesAction();
+        dispatch(getCasesData());
     }, []);
 
     const loginUser = async (emailValue, passwordValue) => {
         try {
-            await loginUserAction(emailValue, passwordValue);
+            await dispatch(login(emailValue, passwordValue));
             history.push('/home');
         } catch (errorValue) {
             catchError(errorValue.message);
@@ -35,7 +35,6 @@ const Login = ({ history, loginUserAction, casesAction, cases }) => {
 
     return (
         <Box>
-            {/*<img src={logo} alt="logo" className={style.logo} />*/}
             <Wrapper>
                 <InsideWrapper>
                     <ErrorWrapper>
@@ -76,13 +75,4 @@ const Login = ({ history, loginUserAction, casesAction, cases }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    cases: state.casesReducer.cases[0],
-});
-
-export default React.memo(
-    connect(mapStateToProps, {
-        loginUserAction: (email, password) => login(email, password),
-        casesAction: () => getCasesData(),
-    })(withRouter(Login))
-);
+export default React.memo(withRouter(Login));

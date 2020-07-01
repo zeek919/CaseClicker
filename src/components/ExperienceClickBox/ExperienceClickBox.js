@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react';
-import PropTypes, { shape } from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateLevel } from '../../store/userData/actions';
 import {
     Loader,
@@ -13,10 +11,14 @@ import {
     DataWrapper,
 } from './StyledComponents';
 
-const ExperienceClickBox = ({ levels, experience, updateLevelAction }) => {
-    const [name, getName] = useState();
-    const [maxExp, getMaxExp] = useState();
-    const [image, getImage] = useState();
+const ExperienceClickBox = () => {
+    const dispatch = useDispatch();
+    const experience = useSelector((state) => state.userDataReducer.experience);
+    const levels = useSelector((state) => state.levelsReducer.levels);
+
+    const [name, getName] = useState('');
+    const [maxExp, getMaxExp] = useState(0);
+    const [image, getImage] = useState('');
 
     const calculateLoaderPercent = () => (experience * 100) / maxExp;
 
@@ -36,7 +38,7 @@ const ExperienceClickBox = ({ levels, experience, updateLevelAction }) => {
 
     const onClickHandler = () => {
         calculateCurrentLevel();
-        updateLevelAction();
+        dispatch(updateLevel());
     };
 
     return (
@@ -64,27 +66,4 @@ const ExperienceClickBox = ({ levels, experience, updateLevelAction }) => {
     );
 };
 
-ExperienceClickBox.propTypes = {
-    levels: PropTypes.arrayOf(
-        shape({
-            id: PropTypes.number.isRequired,
-            image: PropTypes.string.isRequired,
-            minExp: PropTypes.number.isRequired,
-            maxExp: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    experience: PropTypes.number.isRequired,
-    updateLevelAction: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-    experience: state.userDataReducer.experience,
-    levels: state.levelsReducer.levels,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    updateLevelAction: () => dispatch(updateLevel()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExperienceClickBox);
+export default React.memo(ExperienceClickBox);
