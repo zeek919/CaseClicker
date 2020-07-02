@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import randomItemToShow from '../../helpers/randomItemToShow';
 import {
     SkinContainer,
@@ -14,40 +14,43 @@ import SkinsInRollBoard from './Elements/SkinInRollBoard';
 import arrow from '../../assets/images/arrow.png';
 import CaseOpenModal from '../CaseOpenModal/CaseOpenModal';
 import DrawnedSkinModalContent from '../DrawnedSkinModalContent/DrawnedSkinModalContent';
-import { addItem, updateCasesInfo } from '../../store/userData/actions';
+import { addItem } from '../../store/userData/actions';
+import PropTypes from 'prop-types';
 
 const SkinBox = ({
-    skinArray,
-    addItemAction,
+    skinInCollection,
     isCaseAvailable,
     removeOpenedCase,
+    parentForceUpdate,
 }) => {
+    const dispatch = useDispatch();
     const [rolling, turnOnRolling] = useState(false);
     const [itemsToShow, setItemsToShow] = useState([]);
     const [display, setDisplay] = useState(false);
     const [drawnSkin, setDrawnSkin] = useState({});
     const [isLocked, lock] = useState(false);
 
+    const closeModal = () => setDisplay(false);
+
     useEffect(() => {
-        const skinsToShowContainer = randomItemToShow(skinArray);
+        const skinsToShowContainer = randomItemToShow(skinInCollection);
         setItemsToShow(skinsToShowContainer);
     }, []);
 
-    const closeModal = () => setDisplay(false);
-
     const rollHandler = () => {
         setDrawnSkin(itemsToShow[33]);
-        const skinsToShowContainer = randomItemToShow(skinArray);
+        const skinsToShowContainer = randomItemToShow(skinInCollection);
         turnOnRolling(true);
         lock(true);
         setTimeout(() => {
             turnOnRolling(false);
             setDisplay(true);
             setItemsToShow(skinsToShowContainer);
-            addItemAction(itemsToShow[33]);
+            dispatch(addItem(itemsToShow[33]));
             lock(false);
         }, 1500);
         removeOpenedCase();
+        parentForceUpdate();
     };
 
     return (
@@ -71,7 +74,7 @@ const SkinBox = ({
                 </RollButton>
             </RollWrapper>
             <CollectionWrapper>
-                <SkinInCollection skinArray={skinArray} />
+                <SkinInCollection skins={skinInCollection} />
             </CollectionWrapper>
             <CaseOpenModal
                 isOpen={display}
@@ -87,12 +90,11 @@ const SkinBox = ({
     );
 };
 
-const mapStateToProps = (state) => ({
-    itemsFromReducer: state.userDataReducer.items,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    addItemAction: (item) => dispatch(addItem(item)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SkinBox);
+SkinBox.propTypes = {
+    skinInCollection: PropTypes.arrayOf(PropTypes.shape(PropTypes.object))
+        .isRequired,
+    isCaseAvailable: PropTypes.bool.isRequired,
+    removeOpenedCase: PropTypes.func.isRequired,
+    parentForceUpdate: PropTypes.func.isRequired,
+};
+export default SkinBox;

@@ -22,11 +22,7 @@ const checkBasicData = (uid) => async (dispatch, getState, middlewares) => {
     }
 };
 
-export const updateUserData = (data) => async (
-    dispatch,
-    getState,
-    middlewares
-) => {
+export const updateUserData = () => async (dispatch, getState, middlewares) => {
     try {
         const { firestore } = middlewares.services;
         const {
@@ -37,6 +33,7 @@ export const updateUserData = (data) => async (
             experience,
             level,
             items,
+            upgrades,
         } = getState().userDataReducer;
         await firestore.collection('users').doc(uid).update({
             cases,
@@ -45,6 +42,7 @@ export const updateUserData = (data) => async (
             items,
             level,
             money,
+            upgrades,
         });
     } catch (error) {
         throw new Error(error);
@@ -92,6 +90,15 @@ export const register = (nick, email, password) => async (
         await createUser.user.updateProfile({
             displayName: nick,
         });
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const logout = () => async (dispatch, getState, middlewares) => {
+    try {
+        const { firebaseAuth } = middlewares.services;
+        await firebaseAuth.signOut();
     } catch (error) {
         throw new Error(error);
     }

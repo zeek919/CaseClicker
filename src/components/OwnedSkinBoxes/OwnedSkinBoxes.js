@@ -1,7 +1,6 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
-import { connect } from 'react-redux';
-import { updateMoney, updateItems } from '../../store/userData/actions';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItems } from '../../store/userData/actions';
 import {
     Container,
     Wrapper,
@@ -10,25 +9,12 @@ import {
     SkinsWrapper,
     SellButton,
 } from './StyledComponents';
+import { generateKey } from '../../helpers';
 
-const OwnedSkinBoxes = ({
-    money,
-    skins,
-    updateMoneyAction,
-    updateItemsAction,
-}) => {
-    const generateKey = () => {
-        const randomNumber = Math.random();
-        return randomNumber;
-    };
-
-    const clickHandler = (skin) => {
-        const tempSkinArray = [...skins];
-        const index = tempSkinArray.findIndex((a) => a === skin);
-        tempSkinArray.splice(index, 1);
-        updateMoneyAction(money + skin.price);
-        updateItemsAction(tempSkinArray);
-    };
+const OwnedSkinBoxes = () => {
+    const [state, forceUpdate] = useState(true);
+    const dispatch = useDispatch();
+    const skins = useSelector((state) => state.userDataReducer.items);
 
     const ownedSkinContainer = skins.map((item) => (
         <Container key={generateKey()}>
@@ -40,7 +26,12 @@ const OwnedSkinBoxes = ({
                 </InfoContainer>
             </Wrapper>
 
-            <SellButton onClick={() => clickHandler(item)}>
+            <SellButton
+                onClick={() => {
+                    dispatch(removeItems(item));
+                    forceUpdate(!state);
+                }}
+            >
                 Sell for: ${item.price}
             </SellButton>
         </Container>
@@ -49,14 +40,4 @@ const OwnedSkinBoxes = ({
     return <SkinsWrapper>{ownedSkinContainer}</SkinsWrapper>;
 };
 
-const mapStateToProps = (state) => ({
-    money: state.userDataReducer.money,
-    skins: state.userDataReducer.items,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    updateMoneyAction: (item) => dispatch(updateMoney(item)),
-    updateItemsAction: (item) => dispatch(updateItems(item)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(OwnedSkinBoxes);
+export default OwnedSkinBoxes;

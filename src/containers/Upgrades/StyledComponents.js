@@ -49,9 +49,8 @@ export const Header = styled.div`
 
 export const ContentWrapper = styled.div`
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 25px;
+    flex-direction: column;
+    align-items: center;
     margin-top: 3em;
     box-shadow: inset 0px 1px 19px 0px rgba(0, 0, 0, 0.75);
     border-radius: 25px;
@@ -80,3 +79,5 @@ export const ContentWrapper = styled.div`
         background-color: white;
     }
 `;
+
+export const ShopWrapper = styled.div``;

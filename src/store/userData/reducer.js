@@ -5,9 +5,10 @@ import {
     SET_USER_UID,
     UPDATE_USER_LEVEL,
     ADD_ITEM,
-    UPDATE_ITEMS,
-    UPDATE_CASES_INFO,
+    REMOVE_ITEMS,
     DECREMENT_CASE_DATA,
+    UPDATE_UPGRADE,
+    BUY_ITEM,
 } from './types';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     level: 1,
     cases: [],
     items: [],
+    upgrades: [],
 };
 
 const userDataReducer = (state = initialState, action) => {
@@ -43,6 +45,7 @@ const userDataReducer = (state = initialState, action) => {
                 experience: action.payload.experience,
                 cases: action.payload.cases,
                 items: action.payload.items,
+                upgrades: action.payload.upgrades,
             };
         }
         case SET_MONEY: {
@@ -63,28 +66,55 @@ const userDataReducer = (state = initialState, action) => {
                 items: [...state.items, action.item],
             };
         }
-        case UPDATE_ITEMS: {
+        case REMOVE_ITEMS: {
+            const { payload } = action;
+            const { money, items } = state;
+            const index = items.findIndex(
+                (singleSkin) => singleSkin === payload
+            );
+            items.splice(index, 1);
             return {
                 ...state,
-                items: action.item,
-            };
-        }
-        case UPDATE_CASES_INFO: {
-            return {
-                ...state,
-                cases: action.item,
+                money: money + payload.price,
             };
         }
         case DECREMENT_CASE_DATA: {
-            const { item } = action.payload;
-            const decrementedValues = {
-                cases: item.cases--,
-                keys: item.keys--,
-            };
+            const { payload } = action;
+            const { cases } = state;
+
+            cases.map((item) => {
+                if (item.name === payload) {
+                    item.cases -= 1;
+                    item.keys -= 1;
+                }
+            });
+
+            return state;
+        }
+        case UPDATE_UPGRADE: {
+            const { name, value } = action.payload;
+            const { upgrades, currentTap } = state;
+
+            let tempCurrentTap = currentTap + value;
             return {
                 ...state,
-                cases: { ...cases, [item]: decrementedValues },
+                currentTap: tempCurrentTap,
+                upgrades: { ...upgrades, [name]: true },
             };
+        }
+
+        case BUY_ITEM: {
+            const { source, price, type } = action.payload;
+            const { cases, money } = state;
+            let tempMoney = money;
+
+            cases.map((item) => {
+                if (item.name === source && money >= price) {
+                    item[type] += 1;
+                    tempMoney -= price;
+                }
+            });
+            return { ...state, money: tempMoney };
         }
         default:
             return state;

@@ -50,6 +50,10 @@ export const BuyButton = styled.button`
 `;
 
 export const ShopWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     margin-top: 15px;
     display: flex;
 `;

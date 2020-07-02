@@ -26,4 +26,4 @@ Input.defaultProps = {
     onChange: () => {},
 };
 
-export default Input;
+export default React.memo(Input);

@@ -13,4 +13,4 @@ FormButton.propTypes = {
     onClick: PropTypes.func.isRequired,
 };
 
-export default FormButton;
+export default React.memo(FormButton);

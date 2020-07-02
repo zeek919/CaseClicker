@@ -10,6 +10,7 @@ const BASIC_USER_DATA = {
         { name: 'CS:GO Weapon Case', cases: 0, keys: 0 },
         { name: 'CS:GO Weapon Case 2', cases: 0, keys: 0 },
     ],
+    upgrades: [{ tap1: false }, { tap2: false }],
 };
 
 export default BASIC_USER_DATA;

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Box, InfoBox } from '../StyledComponents';
+import { generateKey } from '../../../helpers';
+import PropTypes from 'prop-types';
 
-const SkinInCollection = ({ skinArray }) => {
-    const generateKey = () => {
-        const randomNumber = Math.random();
-        return randomNumber;
-    };
-
-    const skinContainer = skinArray.map((item) => (
+const SkinInCollection = ({ skins }) => {
+    console.log(skins);
+    const skinContainer = skins.map((item) => (
         <Box color={item.color} key={generateKey()}>
             <img src={item.image} alt={item.name} />
             <InfoBox color={item.color}>
@@ -20,4 +18,7 @@ const SkinInCollection = ({ skinArray }) => {
     return skinContainer;
 };
 
-export default SkinInCollection;
+SkinInCollection.propTypes = {
+    skins: PropTypes.arrayOf(PropTypes.object.isRequired),
+};
+export default React.memo(SkinInCollection);
