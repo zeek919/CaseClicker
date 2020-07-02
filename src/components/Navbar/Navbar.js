@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Wrapper,
     NavLinkStyled,
@@ -9,8 +9,10 @@ import {
     Bolded,
 } from './StyledComponents';
 import NAVBAR_HEADER from '../../constants/navbarHeaders';
+import { logout } from '../../store/userData/operations';
 
 const Navbar = () => {
+    const dispatch = useDispatch();
     const userStore = useSelector((store) => store.userDataReducer);
 
     const [currentLink, setLink] = useState('');
@@ -37,7 +39,11 @@ const Navbar = () => {
             </UserWrapper>
             <LinkWrapper>
                 {navLink}
-                <SpecialButton key={'logout'} to={'/'}>
+                <SpecialButton
+                    key={'logout'}
+                    to={'/'}
+                    onClick={() => dispatch(logout())}
+                >
                     LOG OUT!
                 </SpecialButton>
             </LinkWrapper>

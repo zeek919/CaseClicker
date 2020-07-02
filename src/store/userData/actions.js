@@ -1,19 +1,13 @@
 import {
     SET_MONEY,
     SET_USERNAME,
-    SET_USER_DATA,
     UPDATE_USER_LEVEL,
     ADD_ITEM,
-    UPDATE_ITEMS,
     REMOVE_ITEMS,
-    UPDATE_CASES_INFO,
     DECREMENT_CASE_DATA,
+    UPDATE_UPGRADE,
+    BUY_ITEM,
 } from './types';
-
-export const setUserData = (item) => ({
-    type: SET_USER_DATA,
-    item,
-});
 
 export const setUserName = (item) => ({
     type: SET_USERNAME,
@@ -34,22 +28,22 @@ export const addItem = (item) => ({
     item,
 });
 
-export const updateItems = (item) => ({
-    type: UPDATE_ITEMS,
-    item,
-});
-
 export const removeItems = (item) => ({
     type: REMOVE_ITEMS,
     payload: item,
 });
 
-export const updateCasesInfo = (item) => ({
-    type: UPDATE_CASES_INFO,
-    item,
-});
-
 export const decrementCaseInfo = (item) => ({
     type: DECREMENT_CASE_DATA,
+    payload: item,
+});
+
+export const updateUpgrade = (item) => ({
+    type: UPDATE_UPGRADE,
+    payload: item,
+});
+
+export const buyItem = (item) => ({
+    type: BUY_ITEM,
     payload: item,
 });

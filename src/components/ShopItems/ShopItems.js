@@ -7,8 +7,11 @@ import {
     Image,
 } from './StyledComponents';
 import { generateKey } from '../../helpers';
+import { useDispatch } from 'react-redux';
+import { buyItem } from '../../store/userData/actions';
 
-const ShopItems = ({ products, buyHandler, money }) => {
+const ShopItems = ({ products, money }) => {
+    const dispatch = useDispatch();
     const isAvailable = (itemPrice) => itemPrice <= money;
 
     const productsList = Object.values(products).map((item) => (
@@ -18,14 +21,13 @@ const ShopItems = ({ products, buyHandler, money }) => {
                 {item.name}
             </InsideWrapper>
             <BuyButton
-                onClick={() => buyHandler(item.source, item.price)}
+                onClick={() => dispatch(buyItem(item))}
                 isAvilable={isAvailable(item.price)}
             >
                 Buy for: ${item.price}$
             </BuyButton>
         </Wrapper>
     ));
-
     return <ShopWrapper>{productsList}</ShopWrapper>;
 };
 

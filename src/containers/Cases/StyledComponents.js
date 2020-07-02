@@ -50,6 +50,7 @@ export const Header = styled.div`
 export const ContentWrapper = styled.div`
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     padding: 25px;
     margin-top: 3em;
     box-shadow: inset 0px 1px 19px 0px rgba(0, 0, 0, 0.75);

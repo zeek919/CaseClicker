@@ -1,0 +1,1 @@
+export const SET_UPGRADES_DATA = 'SET_UPGRADES_DATA';

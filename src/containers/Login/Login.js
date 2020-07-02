@@ -13,6 +13,7 @@ import {
     ContentForm,
     ButtonWrapper,
 } from './StyledComponents';
+import setUpgradesData from '../../store/upgrades/operations';
 
 const Login = ({ history }) => {
     const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Login = ({ history }) => {
 
     useEffect(() => {
         dispatch(getCasesData());
+        dispatch(setUpgradesData());
     }, []);
 
     const loginUser = async (emailValue, passwordValue) => {

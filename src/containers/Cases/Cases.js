@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Navbar from '../../components/Navbar/Navbar';
-import navbarHeaders from '../../constants/navbarHeaders';
 import CaseBoxes from '../../components/CaseBoxes/CaseBoxes';
 import {
     Wrapper,
@@ -9,39 +8,29 @@ import {
     Header,
     ContentWrapper,
 } from './StyledComponents';
-import { updateUserData } from '../../store/userData/operations';
+import { generateKey } from '../../helpers';
+import { useUpdate, useRedirect } from '../../hooks';
 
-class Cases extends Component {
-    async componentWillUnmount() {
-        const { updateUserDataAction } = this.props;
-        await updateUserDataAction();
-    }
+const Cases = () => {
+    useUpdate();
+    useRedirect();
+    const casesData = useSelector((state) => state.casesReducer.cases);
 
-    render() {
-        const { casesData } = this.props;
+    const caseContainer = casesData.map((singleCaseData) => (
+        <CaseBoxes casesData={singleCaseData} key={generateKey()} />
+    ));
 
-        const caseContainer = casesData.map((singleCaseData) => (
-            <CaseBoxes casesData={singleCaseData} />
-        ));
+    return (
+        <>
+            <Navbar />
+            <Wrapper>
+                <InsideWrapper>
+                    <Header>Cases</Header>
+                    <ContentWrapper>{caseContainer}</ContentWrapper>
+                </InsideWrapper>
+            </Wrapper>
+        </>
+    );
+};
 
-        return (
-            <>
-                <Navbar />
-                <Wrapper>
-                    <InsideWrapper>
-                        <Header>Cases</Header>
-                        <ContentWrapper>{caseContainer}</ContentWrapper>
-                    </InsideWrapper>
-                </Wrapper>
-            </>
-        );
-    }
-}
-
-const mapStateToProps = (state) => ({
-    casesData: state.casesReducer.cases,
-});
-
-export default connect(mapStateToProps, {
-    updateUserDataAction: updateUserData,
-})(Cases);
+export default Cases;
